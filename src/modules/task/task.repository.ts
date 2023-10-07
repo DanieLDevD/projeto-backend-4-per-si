@@ -13,11 +13,11 @@ export class TaskRepository {
   }
 
   async findAll(): Promise<ITaskAll> {
-    const task: Task[] = await this.taskModel.find().exec();
+    const tasks: Task[] = await this.taskModel.find().exec();
     const count: number = await this.taskModel.countDocuments().exec();
 
     const retorno = {
-      tasks: task,
+      tasks: tasks,
       count: count,
     };
     return retorno;
