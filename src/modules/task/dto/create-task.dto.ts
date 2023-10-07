@@ -1,5 +1,4 @@
 import { IsDate, IsNotEmpty, IsString } from 'class-validator';
-import { Schema } from 'mongoose';
 import { ITask, TaskPriority } from 'src/shared/interfaces/task.interface';
 
 export class CreateTaskDto implements ITask {
@@ -15,7 +14,7 @@ export class CreateTaskDto implements ITask {
 
   @IsDate({ message: 'Prazo limite deve ser do tipo Data' })
   @IsNotEmpty({ message: 'O Prazo limite não pode ser vazio' })
-  deadline: Schema.Types.Date;
+  deadline: Date;
 
   @IsString({ message: 'O name deve ser uma string' })
   @IsNotEmpty({ message: 'O name não pode ser vazio' })

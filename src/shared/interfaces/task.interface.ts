@@ -1,5 +1,3 @@
-import { Date } from 'mongoose';
-
 export interface ITask {
   name: string;
   desc: string;
@@ -12,4 +10,9 @@ export enum TaskPriority {
   LOW = 'Low',
   MEDIUM = 'Medium',
   HIGH = 'High',
+}
+
+export interface ITaskAll {
+  tasks: ITask[];
+  count: number;
 }
