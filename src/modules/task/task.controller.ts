@@ -13,10 +13,17 @@ import {
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { JwtAuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { UnauthorizedException } from '@nestjs/common';
+import { Request as ExpressRequest } from 'express';
 
-// @UseGuards(AuthGuard)
+interface CustomRequest extends ExpressRequest {
+  user: {
+    sub: string;
+  };
+}
+
+@UseGuards(AuthGuard)
 @Controller('task')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
@@ -31,9 +38,8 @@ export class TaskController {
     return this.taskService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async findOne(@Param('id') taskId: string, @Request() req) {
+  async findOne(@Param('id') taskId: string, @Request() req: CustomRequest) {
     const userId = req.user.sub;
 
     const task = await this.taskService.findOne(taskId);
