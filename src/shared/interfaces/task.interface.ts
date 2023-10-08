@@ -2,7 +2,7 @@ export interface ITask {
   name: string;
   desc: string;
   priority: TaskPriority;
-  deadline: Date;
+  deadline: string;
   category: string;
 }
 

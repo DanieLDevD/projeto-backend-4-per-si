@@ -16,7 +16,7 @@ export class Task implements ITask {
   priority: TaskPriority;
 
   @Prop({ required: true })
-  deadline: Date;
+  deadline: string;
 
   @Prop({ required: true })
   category: string;
