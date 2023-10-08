@@ -1,4 +1,4 @@
-import { IsHash, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { IUser } from 'src/shared/interfaces/user.interface';
 
 export class CreateUserDto implements IUser {
@@ -6,8 +6,8 @@ export class CreateUserDto implements IUser {
   @IsOptional()
   id?: string;
 
-  @IsString({ message: 'O name deve ser uma string' })
-  @IsNotEmpty({ message: 'O name não pode ser vazio' })
+  @IsString({ message: 'O nome deve ser uma string' })
+  @IsNotEmpty({ message: 'O nome não pode ser vazio' })
   name: string;
 
   @IsString({ message: 'O email deve ser uma string' })
@@ -16,6 +16,5 @@ export class CreateUserDto implements IUser {
 
   @IsString({ message: 'A senha deve ser uma string' })
   @IsNotEmpty({ message: 'A senha não pode ser vazio' })
-  @IsHash('sha256', { message: 'A senha deve ser um hash SHA256' })
   password: string;
 }
