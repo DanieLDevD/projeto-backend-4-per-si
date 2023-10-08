@@ -20,4 +20,8 @@ export class CreateTaskDto implements ITask {
   @IsString({ message: 'O nome deve ser uma string' })
   @IsNotEmpty({ message: 'O nome não pode ser vazio' })
   category: string;
+
+  @IsString({ message: 'O userId deve ser uma string' })
+  @IsNotEmpty({ message: 'O userId não pode ser vazio' })
+  userId: string;
 }

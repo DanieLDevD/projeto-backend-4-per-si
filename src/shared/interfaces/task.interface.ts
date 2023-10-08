@@ -4,6 +4,7 @@ export interface ITask {
   priority: TaskPriority;
   deadline: string;
   category: string;
+  userId: string;
 }
 
 export enum TaskPriority {

@@ -20,6 +20,9 @@ export class Task implements ITask {
 
   @Prop({ required: true })
   category: string;
+
+  @Prop({ required: true })
+  userId: string;
 }
 
 const TaskSchema = SchemaFactory.createForClass(Task);
