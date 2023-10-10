@@ -28,7 +28,7 @@ export class TaskRepository {
   }
 
   findOne(id: string): Promise<Task> {
-    return this.taskModel.findById(id).exec();
+    return this.taskModel.findById(id).populate('author', 'name -_id').exec();
   }
 
   findByName(name: string): Promise<Task> {
