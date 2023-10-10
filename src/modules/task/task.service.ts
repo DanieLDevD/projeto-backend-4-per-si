@@ -10,8 +10,8 @@ export class TaskService {
     return this.taskRepository.create(createTaskDto);
   }
 
-  findAll() {
-    return this.taskRepository.findAll();
+  findAll(filter?) {
+    return this.taskRepository.findAll(filter);
   }
 
   findOne(id: string) {

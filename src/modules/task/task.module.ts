@@ -9,6 +9,5 @@ import { TaskRepository } from './task.repository';
   imports: [DatabaseModule.forFeature([{ name: 'Task', schema: TaskSchema }])],
   controllers: [TaskController],
   providers: [TaskService, TaskRepository],
-  exports: [TaskService, TaskRepository],
 })
 export class TaskModule {}

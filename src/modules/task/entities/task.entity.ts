@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { ITask, TaskPriority } from 'src/shared/interfaces/task.interface';
 
 const transformTask = (doc: any, ret: any) => {
@@ -34,17 +34,17 @@ export class Task implements ITask {
   @Prop({ required: true })
   category: string;
 
-  @Prop({ required: true })
-  userId: string;
+  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  authorId: string;
 }
 
 const TaskSchema = SchemaFactory.createForClass(Task);
 
-TaskSchema.virtual('user', {
+TaskSchema.virtual('author', {
   ref: 'User',
-  localField: 'userId',
+  localField: 'authorId',
   foreignField: '_id',
-  justOne: true,
+  justOne: false,
 });
 
 export { TaskSchema };

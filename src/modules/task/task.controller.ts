@@ -7,21 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
-  Request,
-  NotFoundException,
+  Query,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { AuthGuard } from '../auth/auth.guard';
-import { UnauthorizedException } from '@nestjs/common';
-import { Request as ExpressRequest } from 'express';
-
-interface CustomRequest extends ExpressRequest {
-  user: {
-    sub: string;
-  };
-}
+import { FilterQuery } from 'mongoose';
 
 @UseGuards(AuthGuard)
 @Controller('task')
@@ -34,27 +26,13 @@ export class TaskController {
   }
 
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  findAll(@Query() filter?: FilterQuery<CreateTaskDto>) {
+    return this.taskService.findAll(filter);
   }
 
   @Get(':id')
-  async findOne(@Param('id') taskId: string, @Request() req: CustomRequest) {
-    const userId = req.user.sub;
-
-    const task = await this.taskService.findOne(taskId);
-
-    if (!task) {
-      throw new NotFoundException('Tarefa não encontrada');
-    }
-
-    if (task.userId !== userId) {
-      throw new UnauthorizedException(
-        'Você não tem permissão para acessar esta tarefa.',
-      );
-    }
-
-    return task;
+  findOne(@Param('id') id: string) {
+    return this.taskService.findOne(id);
   }
 
   @Patch(':id')

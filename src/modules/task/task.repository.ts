@@ -12,17 +12,18 @@ export class TaskRepository {
     return this.taskModel.create(createTask);
   }
 
-  async findAll(): Promise<ITaskAll> {
+  async findAll(filter?: any): Promise<ITaskAll> {
     const tasks: Task[] = await this.taskModel
-      .find()
-      .populate('user', 'name -_id')
+      .find(filter)
+      .populate('author', 'name -_id')
       .exec();
-    const count: number = await this.taskModel.countDocuments().exec();
+    const count: number = await this.taskModel.countDocuments(filter).exec();
 
     const retorno = {
       tasks: tasks,
       count: count,
     };
+
     return retorno;
   }
 
