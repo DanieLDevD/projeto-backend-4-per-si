@@ -15,7 +15,7 @@ export class TaskRepository {
   async findAll(filter?: any): Promise<ITaskAll> {
     const tasks: Task[] = await this.taskModel
       .find(filter)
-      .populate('author', 'name -_id')
+      .populate('authors', 'name -_id')
       .exec();
     const count: number = await this.taskModel.countDocuments(filter).exec();
 

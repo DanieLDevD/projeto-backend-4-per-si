@@ -34,15 +34,18 @@ export class Task implements ITask {
   @Prop({ required: true })
   category: string;
 
-  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'User' })
-  authorId: string;
+  @Prop({
+    required: true,
+    type: [{ type: MongooseSchema.Types.ObjectId, ref: 'User' }],
+  })
+  authorsIds: string[];
 }
 
 const TaskSchema = SchemaFactory.createForClass(Task);
 
-TaskSchema.virtual('author', {
+TaskSchema.virtual('authors', {
   ref: 'User',
-  localField: 'authorId',
+  localField: 'authorsIds',
   foreignField: '_id',
   justOne: false,
 });

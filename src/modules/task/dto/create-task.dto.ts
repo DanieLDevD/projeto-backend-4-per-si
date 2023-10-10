@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { ITask, TaskPriority } from 'src/shared/interfaces/task.interface';
 
 export class CreateTaskDto implements ITask {
@@ -21,7 +21,7 @@ export class CreateTaskDto implements ITask {
   @IsNotEmpty({ message: 'O nome não pode ser vazio' })
   category: string;
 
+  @IsArray({ message: 'Os autores devem ser um array', each: false })
   @IsNotEmpty({ message: 'O author não pode ser vazio' })
-  @IsString({ message: 'O author deve ser uma string' })
-  authorId: string;
+  authorsIds: string[];
 }
